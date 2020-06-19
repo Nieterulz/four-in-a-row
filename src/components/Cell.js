@@ -1,37 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export default class Cell extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            i: props.i,
-            j: props.j,
-            color: "white",
-        };
-    }
+export default function Cell(props) {
+    const [i, setI] = useState(props.i);
+    const [j, setJ] = useState(props.j);
+    const changePlayer = props.changePlayer;
+    const [player, setPlayer] = useState(0);
 
-    setToken() {
-        this.setState({ color: "blue" });
-        console.log(this.state);
-    }
+    const setColor = () => {
+        if (player === 0) return "white";
+        if (player === 1) return "blue";
+        return "red";
+    };
 
-    cellStyle() {
-        return {
-            background: this.state.color,
-            width: "75px",
-            height: "75px",
-            borderRadius: "50%",
-            borderColor: "black",
-            outline: "none",
-        };
-    }
+    const cellStyle = {
+        background: setColor(),
+        width: "75px",
+        height: "75px",
+        borderRadius: "50%",
+        borderColor: "black",
+        outline: "none",
+    };
 
-    render() {
-        return (
-            <button
-                style={this.cellStyle()}
-                onClick={this.setToken.bind(this)}
-            ></button>
-        );
-    }
+    return (
+        <button
+            style={cellStyle}
+            onClick={() => {
+                setPlayer(1);
+                changePlayer();
+            }}
+        ></button>
+    );
 }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Cell from "./Cell";
 
 const board = {
@@ -13,21 +13,24 @@ const board = {
 const rows = [1, 2, 3, 4, 5, 6];
 const cols = [1, 2, 3, 4, 5, 6, 7];
 
-export default class Fourinarow extends Component {
-    static state = {
-        player: 1,
+export default function Fourinarow(props) {
+    const [player, setPlayer] = useState(1);
+
+    const changePlayer = () => {
+        setPlayer(player === 1 ? 2 : 1);
     };
 
-    changePlayer() {
-        this.setState({ player: this.state.player === 1 ? 2 : 1 });
-    }
+    const cells = rows.map((i) =>
+        cols.map((j) => (
+            <Cell
+                key={i.toString() + j.toString()}
+                i={i}
+                j={j}
+                changePlayer={changePlayer}
+            ></Cell>
+        ))
+    );
+    console.log("renderizado de nuevo");
 
-    render() {
-        const cells = rows.map((i) =>
-            cols.map((j) => (
-                <Cell key={i.toString() + j.toString()} i={i} j={j}></Cell>
-            ))
-        );
-        return <div style={board}>{cells}</div>;
-    }
+    return <div style={board}>{cells}</div>;
 }
