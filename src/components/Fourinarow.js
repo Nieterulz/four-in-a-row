@@ -8,6 +8,7 @@ const board = {
     width: "531px",
     border: "solid black 3px",
     borderRadius: "3%",
+    color: "blue",
 };
 
 const rows = [1, 2, 3, 4, 5, 6];
