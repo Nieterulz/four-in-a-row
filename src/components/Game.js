@@ -4,17 +4,21 @@ import { Board } from "./Board";
 export function Game() {
     const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXIsNext] = useState(true);
-    const [history, setHistory] = useState({ squares: Array(9).fill(null) });
+    const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
+
+    console.log(history);
 
     const handleClick = (i) => {
-        const history = history.slice(0, stepNumber + 1);
-        const current = history[history.length - 1];
+        const hs = history.slice(0, stepNumber + 1);
+        const current = hs[history.length - 1];
         const squares = current.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
         squares[i] = xIsNext ? "X" : "O";
-        setHistory(...history, { squares: squares });
+        setHistory((history) => [...history, { squares: squares }]);
+        console.log(history);
+
         setStepNumber(history.length);
         setXIsNext(!xIsNext);
     };
@@ -24,7 +28,7 @@ export function Game() {
         setXIsNext(step % 2 === 0);
     };
 
-    let current = history[stepNumber];
+    const current = history[stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
