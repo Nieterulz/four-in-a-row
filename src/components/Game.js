@@ -6,8 +6,6 @@ export function Game() {
     const [xIsNext, setXIsNext] = useState(true);
     const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
 
-    console.log(history);
-
     const handleClick = (i) => {
         const hs = history.slice(0, stepNumber + 1);
         const current = hs[history.length - 1];
@@ -17,7 +15,6 @@ export function Game() {
         }
         squares[i] = xIsNext ? "X" : "O";
         setHistory((history) => [...history, { squares: squares }]);
-        console.log(history);
 
         setStepNumber(history.length);
         setXIsNext(!xIsNext);
