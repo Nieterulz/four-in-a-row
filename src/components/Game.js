@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Board } from "./Board";
+import { NavBar } from "./NavBar";
 
 export function Game() {
     const [stepNumber, setStepNumber] = useState(0);
@@ -44,8 +45,9 @@ export function Game() {
         status = "Next player: " + (xIsNext ? "X" : "O");
     }
     return (
-        <div className="game">
-            <div className="game-board">
+        <div>
+            <NavBar />
+            <div>
                 <Board
                     squares={current.squares}
                     onClick={(i) => handleClick(i)}
